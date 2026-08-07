@@ -26,7 +26,7 @@
 
 void readInt(const char *s, int *i){
     while(1){
-        printf("\nEnter the value of %s: ", s);
+        printf("\nEnter %s: ", s);
         if(scanf("%d", i) == 1) break;
         printf("\nInvalid Value Entered!!!\n\n");
         while(getchar() != '\n');
@@ -35,13 +35,21 @@ void readInt(const char *s, int *i){
 
 void readFloat(const char *s, float *f){
     while(1){
-        printf("\nEnter the value of %s: ", s);
+        printf("\nEnter %s: ", s);
         if(scanf("%f", f) == 1) break;
         printf("\nInvalid Value Entered!!!\n\n");
         while(getchar() != '\n');
     }
 }
 
+void readChoice(int *option){
+    while(1){
+        printf("\nEnter your choice: ");
+        if(scanf("%d", option) == 1) break;
+        printf("\n***Invalid Option***\n");
+        while(getchar() != '\n');
+    }
+}
 // static int validateChar(char startChar, char endChar, const char inputVal){
 //     if(inputVal >= startChar && inputVal <= endChar){
 //         return 1;

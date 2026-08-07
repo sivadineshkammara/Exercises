@@ -1,7 +1,7 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
-void calculator(void);
-void calculateAndPrint(char operator);
+void runCalculator(void);
+void performOperation(char operator);
 
 #endif

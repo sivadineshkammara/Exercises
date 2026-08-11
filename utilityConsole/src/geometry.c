@@ -36,65 +36,54 @@
 
 #include "geometry.h"
 #include "input.h"
+#include "types.h"
+#include "menu.h"
 
 static const float PI = 3.14f; 
 
 //function declarations for private helpers.
-static void findArea(void);
-static void findPerimeter(void);
-static void displayShapeMenu(void);
+static void findArea();
+static void findPerimeter();
 
-static void areaOfSquare(void);
-static void areaOfRectangle(void); 
-static void areaOfTriangle(void);
-static void areaOfCircle(void);
+static void areaOfSquare(Shape op);
+static void areaOfRectangle(Shape op); 
+static void areaOfTriangle(Shape op);
+static void areaOfCircle(Shape op);
 
-static void perimeterOfSquare(void);
-static void perimeterOfRectangle(void);
-static void perimeterOfTriangle(void);
-static void perimeterOfCircle(void);
+static void perimeterOfSquare(Shape op);
+static void perimeterOfRectangle(Shape op);
+static void perimeterOfTriangle(Shape op);
+static void perimeterOfCircle(Shape op);
 
-static float calculateArea(char shape, float dimension1, float dimension2);
-static float calculatePerimeter(char shape, float dimension1, float dimension2, float dimension3);
+static float calculateArea(Shape shape, float dimension1, float dimension2);
+static float calculatePerimeter(Shape shape, float dimension1, float dimension2, float dimension3);
 
 
 //function implementations for private helpers.
-static void displayShapeMenu(void){
-    printf(
-        "\n-----Choose your shape-----\n"
-        "1. Square\n"
-        "2. Rectangle\n"
-        "3. Triangle\n"
-        "4. Circle\n"
-        "5. Exit\n"
-    );
-}
-
-static float calculateArea(char shape, float dimension1, float dimension2){
+static float calculateArea(Shape shape, float dimension1, float dimension2){
     switch(shape){
-        case 'S':
+        case SHAPE_SQUARE:
             return(dimension1 * dimension1);
-        case 'R':
+        case SHAPE_RECTANGLE:
             return(dimension1 * dimension2);
-        case 'T':
+        case SHAPE_TRIANGLE:
             return((dimension1 * dimension2)/2);
-        case 'C':
+        case SHAPE_CIRCLE:
             return(PI * dimension1 * dimension1);
         default:
             printf("Invalid shape\n");
             return 0;
     }
 }
-static float calculatePerimeter(char shape, float dimension1, float dimension2, float dimension3){
+static float calculatePerimeter(Shape shape, float dimension1, float dimension2, float dimension3){
     switch(shape){
-        case 'S':
+        case SHAPE_SQUARE:
             return(4 * dimension1);
-        case 'R':
+        case SHAPE_RECTANGLE:
             return(2 * (dimension1 + dimension2));
-        case 'T':
-            // Assuming dimension1, dimension2 are side1 and side2
+        case SHAPE_TRIANGLE:
             return(dimension1 + dimension2 + dimension3);
-        case 'C':
+        case SHAPE_CIRCLE:
             return(2 * PI * dimension1);
         default:
             printf("Invalid shape\n");
@@ -102,78 +91,80 @@ static float calculatePerimeter(char shape, float dimension1, float dimension2, 
     }
 }
 
-static void areaOfSquare(void){
+static void areaOfSquare(Shape op){
     float side;
     readFloat("side of the Square", &side);
-    printf("\nThe area of the Square is: %.2fsqm\n", calculateArea('S', side, 0));
+    printf("\nThe area of the Square is: %.2fsqm\n", calculateArea(op, side, 0));
 }
 
-static void areaOfRectangle(void){
+static void areaOfRectangle(Shape op){
     float breadth, length;
     readFloat("Breadth of Rectangle", &breadth);
     readFloat("Length of Rectangle", &length);
-    printf("\nThe area of the Rectangle is: %.2fsqm\n", calculateArea('R', length, breadth));
+    printf("\nThe area of the Rectangle is: %.2fsqm\n", calculateArea(op, length, breadth));
 }
 
-static void areaOfTriangle(void){
+static void areaOfTriangle(Shape op){
     float base, height;
     readFloat("Base of the Triangle", &base);
     readFloat("Height of the Triangle", &height);
-    printf("\nThe area of the Triangle is: %.2fsqm\n", calculateArea('T', base, height));
+    printf("\nThe area of the Triangle is: %.2fsqm\n", calculateArea(op, base, height));
 }
 
-static void areaOfCircle(void){
+static void areaOfCircle(Shape op){
     float radius;
     readFloat("Radius of the Circle", &radius);
-    printf("The area of the Circle is: %.2fsqm\n", calculateArea('C', radius, 0));
+    printf("The area of the Circle is: %.2fsqm\n", calculateArea(op, radius, 0));
 }
 
-static void perimeterOfSquare(void){
+static void perimeterOfSquare(Shape op){
     float side;
     readFloat("Side of the Square", &side);
-    printf("\nThe perimeter of the square is: %.2fm\n", calculatePerimeter('S', side, 0, 0));
+    printf("\nThe perimeter of the square is: %.2fm\n", calculatePerimeter(op, side, 0, 0));
 }
 
-static void perimeterOfRectangle(void){
+static void perimeterOfRectangle(Shape op){
     float length, breadth;
     readFloat("Length of the Rectangle", &length);
     readFloat("Breadth of the Rectangle", &breadth);
-    printf("\nThe perimeter of the rectangle: %.2fm\n", calculatePerimeter('R', length, breadth, 0));
+    printf("\nThe perimeter of the rectangle: %.2fm\n", calculatePerimeter(op, length, breadth, 0));
 }
 
-static void perimeterOfTriangle(void){
+static void perimeterOfTriangle(Shape op){
     float sideOne, sideTwo, sideThree;
     readFloat("First side of the Triangle", &sideOne);
     readFloat("Second side of the Triangle", &sideTwo);
     readFloat("Third side of the Triangle", &sideThree);
-    printf("\nThe perimeter of the Triangle: %.2fm\n", calculatePerimeter('T', sideOne, sideTwo, sideThree));
+    printf("\nThe perimeter of the Triangle: %.2fm\n", calculatePerimeter(op, sideOne, sideTwo, sideThree));
 }
 
-static void perimeterOfCircle(void){
+static void perimeterOfCircle(Shape op){
     float radius;
     readFloat("radius of the Circle", &radius);
-    printf("\nThe perimeter of the Circle: %.2fm\n", calculatePerimeter('C', radius, 0, 0));
+    printf("\nThe perimeter of the Circle: %.2fm\n", calculatePerimeter(op, radius, 0, 0));
 }
 
-static void findArea(void){
+static void findArea(){
+    Shape option;
     int choice;
     while(1){
         displayShapeMenu();
         readChoice(&choice);
-        switch(choice){
-            case 1:
-                areaOfSquare();
+        option = (Shape)choice;
+        switch(option){
+            case SHAPE_SQUARE:
+                areaOfSquare(SHAPE_SQUARE);
                 break;
-            case 2:
-                areaOfRectangle();
+            case SHAPE_RECTANGLE:
+                areaOfRectangle(SHAPE_RECTANGLE);
                 break;
-            case 3:
-                areaOfTriangle();
+            case SHAPE_TRIANGLE:
+                areaOfTriangle(SHAPE_TRIANGLE);
                 break;
-            case 4:
-                areaOfCircle();
+            case SHAPE_CIRCLE:
+                areaOfCircle(SHAPE_CIRCLE);
                 break;
-            case 5:
+            case SHAPE_EXIT:
                 return;
             default:
                 printf("\n***Invalid Option***\n");
@@ -181,25 +172,27 @@ static void findArea(void){
         }
     }
 }
-static void findPerimeter(void){
+static void findPerimeter(){
+    Shape option;
     int choice;
     while(1){
         displayShapeMenu();
         readChoice(&choice);
-        switch(choice){
-            case 1:
-                perimeterOfSquare();
+        option = (Shape)choice;
+        switch(option){
+            case SHAPE_SQUARE:
+                perimeterOfSquare(SHAPE_SQUARE);
                 break;
-            case 2:
-                perimeterOfRectangle();
+            case SHAPE_RECTANGLE:
+                perimeterOfRectangle(SHAPE_RECTANGLE);
                 break;
-            case 3:
-                perimeterOfTriangle();
+            case SHAPE_TRIANGLE:
+                perimeterOfTriangle(SHAPE_TRIANGLE);
                 break;
-            case 4:
-                perimeterOfCircle();
+            case SHAPE_CIRCLE:
+                perimeterOfCircle(SHAPE_CIRCLE);
                 break;
-            case 5:
+            case SHAPE_EXIT:
                 return;
             default:
                 printf("\n***Invalid Option***\n");
@@ -210,23 +203,20 @@ static void findPerimeter(void){
 
 // Public functions implementations.
 void runGeometryCalculator(void){
+    GeometryOption geometryOption;
     int choice;
     while(1){
-        printf(
-            "\n-----Choose the function-----\n"
-            "1. Find Area\n"
-            "2. Find Perimeter\n"
-            "3. Exit\n"
-        );
+        displayGeometryMenu();
         readChoice(&choice);
-        switch(choice){
-            case 1:
+        geometryOption = (GeometryOption)choice;
+        switch(geometryOption){
+            case GEOMETRY_AREA:
                 findArea();
                 break;
-            case 2:
+            case GEOMETRY_PERIMETER:
                 findPerimeter();
                 break;
-            case 3:
+            case GEOMETRY_EXIT:
                 return;
             default:
                 printf("\n***Invalid Option***\n");

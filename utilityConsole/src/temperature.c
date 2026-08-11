@@ -31,11 +31,11 @@
 #include "input.h"
 #include "calculator.h"
 #include "temperature.h"
+#include "types.h"
+#include "menu.h"
 
 
 //Private function declarations.
-static void displayTemperatureMenu(void);
-
 static void celsiusToFahrenheit(void);
 static void celsiusToKelvin(void);
 
@@ -46,19 +46,6 @@ static void kelvinToCelsius(void);
 static void kelvinToFahrenheit(void);
 
 //Helper functions implementations.
-static void displayTemperatureMenu(void){
-    printf(
-        "\n*** Choose the temperature conversion ***\n"
-        "1.Celsius to Fahrenheit\n"
-        "2.Celsius to Kelvin\n"
-        "3.Fahrenheit to Celsius\n"
-        "4.Fahrenheit to Kelvin\n"
-        "5.Kelvin to Celsius\n"
-        "6.Kelvin to Fahrenheit\n"
-        "7.Return to Main menu\n"
-    );
-}
-
 static void celsiusToFahrenheit(void){
     float celsiusVal;
     readFloat("temperature in Celsius", &celsiusVal);
@@ -94,30 +81,32 @@ static void kelvinToFahrenheit(void){
 
 // Public functions implementations.
 void runTemperatureConverter(void){
+    TemperatureConversion temperatureUnit;
     int option;
     while(1){
         displayTemperatureMenu();
         readChoice(&option);
-        switch(option){
-            case 1:
+        temperatureUnit = (TemperatureConversion)option;
+        switch(temperatureUnit){
+            case CONVERT_CELSIUS_FAHRENHEIT:
                 celsiusToFahrenheit();
                 break;
-            case 2:
+            case CONVERT_CELSIUS_KELVIN:
                 celsiusToKelvin();
                 break;
-            case 3:
+            case CONVERT_FAHRENHEIT_CELSIUS:
                 fahrenheitToCelsius();
                 break;
-            case 4:
+            case CONVERT_FAHRENHEIT_KELVIN:
                 fahrenheitToKelvin();
                 break;
-            case 5:
+            case CONVERT_KELVIN_CELSIUS:
                 kelvinToCelsius();
                 break;
-            case 6:
+            case CONVERT_KELVIN_FAHRENHEIT:
                 kelvinToFahrenheit();
                 break;
-            case 7:
+            case CONVERT_EXIT:
                 return;
             default:
                 printf("***Please enter a valid option***\n\n");

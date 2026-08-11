@@ -24,23 +24,17 @@
 
 #include "calculator.h"
 #include "input.h"
+#include "types.h"
+#include "menu.h"
 
 //Private function declarations.
+static void performOperation(Operation op);
 static void addition(void);
 static void subtraction(void);
 static void multiplication(void);
 static void division(void);
 static void modulus(void);
-// static int validateDivisor(int d);
 
-// static void repeatCalculation(void);
-// static int validateDivisor(int d){
-//     if(d == 0){
-//         printf("Error: Division by zero is not allowed.\n");
-//         return 1;
-//     }
-//     return 0;
-// }
 static int add(const int a, const int b){
     return(a+b);
 }
@@ -63,21 +57,16 @@ static int calculateRemainder(const int a, const int b){
 
 static void addition(void){
     int a,b;
-
     readInt("A", &a);
     readInt("B", &b);
-
     printf("The sum of %d and %d is: %d\n\n", a,b,add(a,b));
 }
 
 static void subtraction(void){
     int a,b;
-    // static const char *s1 = "A";
-    // static const char *s2 = "B";
     readInt("A", &a);
     readInt("B", &b);
     printf("The difference of %d and %d is: %d\n\n", a,b,subtract(a,b));
-    printf("The difference of %d and %d is: %d\n\n", b,a,subtract(b,a));
 }
 
 static void multiplication(void){
@@ -111,22 +100,22 @@ static void modulus(void){
     printf("The remainder of %d and %d is: %d\n\n", a,b,calculateRemainder(a,b));
 }
 
-void performOperation(char op){
+static void performOperation(Operation op){
     
     switch(op){
-        case '+':
+        case OP_ADD:
             addition();
             break;
-        case '-':
+        case OP_SUBTRACT:
             subtraction();
             break;
-        case '*':
+        case OP_MULTIPLY:
             multiplication();
             break;
-        case '/':
+        case OP_DIVIDE:
             division();
             break;
-        case '%':
+        case OP_MODULUS:
             modulus();
             break;
         default:
@@ -138,61 +127,18 @@ void performOperation(char op){
 
 // Public function implementations.
 void runCalculator(void){
-    int option;
+    Operation option;
+    int rawChoice;
 
     while(1){
-        printf(
-            "\n-----Select your operation-----\n"
-            "1. Addition of two numbers\n"
-            "2. Subtraction of two numbers\n"
-            "3. Multiplication of two numbers\n"
-            "4. Division of two numbers\n"
-            "5. Find the Remainder\n"
-            "6. Exit\n"
-        );
+        displayCalculatorMenu();
+        readChoice(&rawChoice);
+        option = (Operation)rawChoice;
 
-        readChoice(&option);
-        // printf("\n");
-
-        switch(option){
-            case 1:
-                performOperation('+');
-                break;
-            case 2:
-                performOperation('-');
-                break;
-            case 3:
-                performOperation('*');
-                break;
-            case 4:
-                performOperation('/');
-                break;
-            case 5:
-                performOperation('%');
-                break;
-            case 6:
-                return;
-            default:
-                printf("***Please enter a valid option***\n\n");
-                break;
+        if(option == OP_EXIT){
+            return;
         }
+        performOperation(option);
     }
 
 }
-
-// static void repeatCalculation(void){
-//     char choice;
-//     while(1){
-//         printf("Do you want to perform another calculation? (y/n): ");
-//         scanf(" %c", &choice);
-//         if(choice == 'y' || choice == 'Y'){
-//             calculator();
-//             break;
-//         } else if(choice == 'n' || choice == 'N'){
-//             printf("Exiting the calculator.\n");
-//             break;
-//         } else {
-//             printf("Invalid input. Please enter 'y' or 'n'.\n");
-//         }
-//     }
-// }

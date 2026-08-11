@@ -1,0 +1,44 @@
+#ifndef TYPES_H
+#define TYPES_H
+
+typedef enum{
+    MENU_CALCULATOR = 1,
+    MENU_TEMPERATURE,
+    MENU_GEOMETRY,
+    MENU_EXIT
+}MainMenuOption;
+
+typedef enum{
+    OP_ADD = 1,
+    OP_SUBTRACT,
+    OP_MULTIPLY,
+    OP_DIVIDE,
+    OP_MODULUS,
+    OP_EXIT
+}Operation;
+
+typedef enum{
+    SHAPE_SQUARE = 1,
+    SHAPE_RECTANGLE,
+    SHAPE_TRIANGLE,
+    SHAPE_CIRCLE,
+    SHAPE_EXIT
+} Shape;
+
+typedef enum{
+    CONVERT_CELSIUS_FAHRENHEIT = 1,
+    CONVERT_CELSIUS_KELVIN,
+    CONVERT_FAHRENHEIT_CELSIUS,
+    CONVERT_FAHRENHEIT_KELVIN,
+    CONVERT_KELVIN_CELSIUS,
+    CONVERT_KELVIN_FAHRENHEIT,
+    CONVERT_EXIT
+}TemperatureConversion;
+
+typedef enum{
+    GEOMETRY_AREA = 1,
+    GEOMETRY_PERIMETER,
+    GEOMETRY_EXIT
+}GeometryOption;
+
+#endif

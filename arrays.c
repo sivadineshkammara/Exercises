@@ -16,32 +16,33 @@
     smallest number
     sum
     average
+    reverse of the array
 
     Rules:
     Use only one array.
     Use a single for loop to process the values after input.
 */
-void readElements(int *arr, int n);
-void printElements(int *arr, int n);
-int max(int *arr, int n);
-int min(int *arr, int n);
-int sum(int *arr, int n);
-float average(int *arr, int n);
+void readElements(int *arr, const int n);
+void printElements(int *arr, const int n);
+int max(int *arr, const int n);
+int min(int *arr, const int n);
+int sum(int *arr, const int n);
+float average(int *arr, const int n);
 
-void readElements(int *arr, int n){
+void readElements(int *arr, const int n){
     printf("Please Enter the Array elements:\n");
     for(int i=0; i<n; i++){
         printf("Enter element %d: ", i);
         scanf("%d", (arr+i));
     }
 }
-void printElements(int *arr, int n){
-    for(int i=0; i<n; i++){
+void reverseElements(int *arr, const int n){
+    for(int i=n-1; i>=0; i--){
         printf("%d\n", *(arr+i));
     }
 }
 
-int sum(int *arr, int n){
+int sum(int *arr, const int n){
     int total = 0;
     for(int i=0; i<n; i++){
         total += *(arr + i);
@@ -49,7 +50,7 @@ int sum(int *arr, int n){
     return total;
 }
 
-int max(int *arr, int n){
+int max(int *arr, const int n){
     int max = *(arr);
 
     for(int i=0; i<n; i++){
@@ -58,7 +59,7 @@ int max(int *arr, int n){
     return max;
 }
 
-int min(int *arr, int n){
+int min(int *arr, const int n){
     int min = *(arr);
 
     for(int i=0; i<n; i++){
@@ -67,26 +68,26 @@ int min(int *arr, int n){
     return min;
 }
 
-float average(int *arr, int n){
+float average(int *arr, const int n){
     int total = sum(arr,n);
     float avg = (float)total/n;
     return avg;
 }
 
-void arraySum(int *arr, int n){
+void arraySum(int *arr, const int n){
     
     printf("Sum of all Array elements is: %d\n", sum(arr,n));
 
 }
 
-void arrayMax(int *arr, int n){
+void arrayMax(int *arr, const int n){
     printf("The largest element in the Array is: %d\n", max(arr,n));
 }
-void arrayMin(int *arr, int n){
+void arrayMin(int *arr, const int n){
     printf("The smallest element in the Array is: %d\n", min(arr,n));
 }
 
-void arrayAverage(int *arr, int n){
+void arrayAverage(int *arr, const int n){
     printf("The average of given Array is: %.2f\n", average(arr, n));
 }
 int main(){
@@ -96,7 +97,7 @@ int main(){
     int arr[arrLen];
 
     readElements(arr,arrLen);
-    // printElements(arr, arrLen);
+    reverseElements(arr, arrLen);
     arraySum(arr,arrLen);
     arrayMax(arr,arrLen);
     arrayMin(arr,arrLen);

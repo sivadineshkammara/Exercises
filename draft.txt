@@ -1,0 +1,10 @@
+Today is - 16/08/2026.
+
+I am making this text file because I want to record my journey from today.
+
+these are the things i will get familarised by the end of August.
+1. C - advanced => complete Beeg's C book.
+2. C - Embedded basics.
+3. Python Basics.
+4. Complete two Embedded C programming projects
+
